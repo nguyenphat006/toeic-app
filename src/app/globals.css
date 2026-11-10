@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* Brand tokens live here only — change a value and the whole app follows. */
+@theme {
+  --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
+
+  --color-bg: #f4f8f1;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef5ea;
+  --color-ink: #1d2b1f;
+  --color-muted: #5d6f60;
+  --color-line: #dde8d8;
+
+  --color-brand: #2f8f4e;
+  --color-brand-strong: #237340;
+  --color-brand-soft: #e3f2e6;
+
+  --color-sun: #f4c430;
+  --color-sun-strong: #e79a12;
+  --color-sun-soft: #fff6d6;
+  --color-sun-ink: #8a6400;
+
+  --color-danger: #c8473d;
+  --color-danger-soft: #fdebe9;
+
+  --radius-card: 22px;
+  --radius-tile: 14px;
+
+  --shadow-press-brand: 0 4px 0 var(--color-brand-strong);
+  --shadow-pop: 0 10px 30px rgb(29 43 31 / 0.14);
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-bg text-ink antialiased;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-sun);
+    outline-offset: 2px;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+
+/* Thin, auto-hiding scrollbars instead of the browser's default chunky ones. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-muted) 35%, transparent) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-muted) 35%, transparent);
+  border-radius: 999px;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Card flip needs real 3D, which utility classes do not cover cleanly. */
+.flip-scene {
+  perspective: 1200px;
+}
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    box-shadow: var(--shadow-press-brand), 0 0 0 0 rgb(47 143 78 / 0.35);
+  }
+  50% {
+    box-shadow: var(--shadow-press-brand), 0 0 0 14px rgb(47 143 78 / 0);
+  }
+}
+.animate-breathe {
+  animation: breathe 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
